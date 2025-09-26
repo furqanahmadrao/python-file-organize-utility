@@ -1,395 +1,190 @@
-# 🗂️ File Organizer v2.0
+# 🗂️ FileNest
 
-**Professional file organization utility with enhanced CLI features!**
+**Simple, powerful file organization made easy!**
 
-A powerful and feature-rich Python tool that transforms chaos into order with advanced file organization capabilities. Now featuring a comprehensive command-line interface, multiple organization profiles, and professional-grade functionality perfect for power users, developers, and anyone who values organized digital spaces.
+FileNest is a production-ready file organizer that automatically sorts your files into categories. Perfect for anyone who wants their Downloads folder organized without complexity.
 
-![Python](https://img.shields.io/badge/python-v3.6+-blue.svg)
+![Python](https://img.shields.io/badge/python-v3.8+-blue.svg)
 ![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
-![Dependencies](https://img.shields.io/badge/dependencies-none-brightgreen)
+![Dependencies](https://img.shields.io/badge/dependencies-minimal-brightgreen)
 
 ## ✨ Features
 
-### 🎯 **Core Functionality**
-
-- 🗂️ **Smart Organization**: Automatically sorts files by type, size, date, or custom rules
-- 👤 **Multiple Profiles**: Pre-built profiles (photographer, developer, student, business)
-- 📁 **Auto-Folder Creation**: Intelligent folder structure creation
-- ⚙️ **Fully Customizable**: Advanced configuration system with rule validation
-
-### ⚡ **Enhanced CLI Features**
-
-- 🖥️ **Interactive Mode**: User-friendly menu system for beginners
-- � **Command-Line Interface**: Full-featured CLI with 50+ options
-- 🚀 **Multi-threading**: Process thousands of files efficiently
-- 🔍 **Duplicate Detection**: Find and manage duplicate files intelligently
-- �️ **Directory Watching**: Real-time monitoring and organization
-- 📊 **Progress Tracking**: Visual progress bars and live statistics
-
-### 🛡️ **Safety & Reliability**
-
-- 🔍 **Preview Mode**: See changes before they happen
-- ↩️ **Undo Functionality**: Complete operation reversal
-- 📋 **Comprehensive Logging**: Database-backed logging system
-- �️ **Error Handling**: Robust recovery and detailed error reporting
-- � **Statistics**: Detailed analytics and session tracking
+- 🗂️ **Automatic Organization**: Sorts files by type (Images, Documents, Videos, etc.)
+- ⚙️ **Simple Configuration**: Easy setup with `config-setup` command
+- 👀 **Real-time Watching**: Monitor folders for new files with `--watch`
+- 🔍 **Preview Mode**: See what will happen with `--dry-run`
+- 📝 **Clean Logging**: Human-readable logs with timestamps
+- 🔄 **Duplicate Handling**: Smart handling of existing files
+- 🖥️ **Cross-platform**: Works on Windows, macOS, and Linux
+- 📦 **Multiple Install Options**: Pip package or standalone executable
 
 ## 🚀 Quick Start
 
-### 1. Clone & Setup
+### Option 1: Install with pip (Recommended)
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/file-organizer.git
-cd file-organizer
-
-# Create virtual environment (recommended)
-python -m venv venv
-
-# Activate virtual environment
-# Windows PowerShell:
-.\venv\Scripts\Activate.ps1
-# Windows Command Prompt:
-.\venv\Scripts\activate.bat
-# macOS/Linux:
-source venv/bin/activate
+pip install filenest[all]
 ```
 
-### 2. Basic Usage
+### Option 2: Use standalone executable
+
+Download `filenest.exe` (Windows) or `filenest` (Linux/macOS) - no Python required!
+
+### Option 3: Install from source
 
 ```bash
-# Preview what would be organized (safe mode)
-python organizer_main.py --preview
-
-# Actually organize files
-python organizer_main.py
-
-# Organize a specific folder
-python organizer_main.py --path "/path/to/your/messy/folder"
+git clone https://github.com/furqanahmadrao/python-file-organize-utility.git
+cd python-file-organize-utility
+python install.py
 ```
 
-### 3. Configuration & Testing
+## 📋 Usage
 
+### 1. Set up configuration
 ```bash
-# Configure your organization rules
-python config_setup.py
-
-# Create test files and try it out
-python test_script.py
-
-# Check what happened
-python log_viewer.py
+config-setup
 ```
 
-## 📋 Default File Categories
-
-| Category      | Extensions                                                                        |
-| ------------- | --------------------------------------------------------------------------------- |
-| **Images**    | `.jpg`, `.jpeg`, `.png`, `.gif`, `.bmp`, `.webp`, `.svg`, `.ico`                  |
-| **Documents** | `.pdf`, `.doc`, `.docx`, `.txt`, `.rtf`, `.odt`, `.xls`, `.xlsx`, `.ppt`, `.pptx` |
-| **Videos**    | `.mp4`, `.avi`, `.mkv`, `.mov`, `.wmv`, `.flv`, `.webm`, `.m4v`                   |
-| **Audio**     | `.mp3`, `.wav`, `.flac`, `.aac`, `.ogg`, `.wma`, `.m4a`                           |
-| **Archives**  | `.zip`, `.rar`, `.7z`, `.tar`, `.gz`, `.bz2`, `.xz`                               |
-| **Code**      | `.py`, `.js`, `.html`, `.css`, `.java`, `.cpp`, `.c`, `.php`, `.rb`               |
-| **Others**    | Any unknown file types                                                            |
-
-## 🔧 Tools Overview
-
-### `organizer_main.py` - Main Organizer
-
-The core tool that does the file organization.
-
-**Usage:**
-
+### 2. Organize your Downloads folder
 ```bash
-python organizer_main.py [options]
-
-Options:
-  --path PATH      Target directory to organize (overrides config)
-  --preview        Preview mode - show what would be organized
-  --config CONFIG  Path to config file (default: config.json)
+organize
 ```
 
-**Examples:**
-
+### 3. Preview before organizing
 ```bash
-# Basic organization of default directory
-python organizer_main.py
-
-# Preview Downloads folder
-python organizer_main.py --path "C:/Users/YourName/Downloads" --preview
-
-# Use custom config
-python organizer_main.py --config "my_rules.json"
+organize --dry-run
 ```
 
-### `config_setup.py` - Configuration Manager
-
-Interactive tool to create and modify organization rules.
-
-**Usage:**
-
+### 4. Watch for new files automatically
 ```bash
-python config_setup.py
+organize --watch
 ```
 
-**Features:**
-
-- 📋 View current configuration
-- 🎯 Change target directory
-- ➕ Add new categories
-- ✏️ Modify existing categories
-- 🗑️ Delete categories
-- 💾 Save configuration
-
-### `log_viewer.py` - Log Analysis Tool
-
-View and analyze organization history.
-
-**Usage:**
-
+### 5. Organize a specific folder
 ```bash
-# Interactive mode
-python log_viewer.py
-
-# Command-line options
-python log_viewer.py --summary              # Show summary
-python log_viewer.py --recent 3             # Show 3 recent sessions
-python log_viewer.py --errors               # Show errors only
-python log_viewer.py --search "filename"    # Search logs
-python log_viewer.py --stats                # Show statistics
+organize --path "/path/to/folder"
 ```
 
-### `test_script.py` - Test Suite
-
-Create sample files and test the organization functionality.
-
-**Usage:**
-
+### 6. View logs
 ```bash
-python test_script.py
+log-viewer
+log-viewer --recent 10
+log-viewer --today
 ```
+
+## 🏗️ Default File Categories
+
+- **Images**: `.jpg`, `.png`, `.gif`, `.svg`, etc.
+- **Documents**: `.pdf`, `.docx`, `.txt`, `.xlsx`, etc.
+- **Videos**: `.mp4`, `.mov`, `.avi`, `.mkv`, etc.
+- **Audio**: `.mp3`, `.wav`, `.flac`, `.aac`, etc.
+- **Archives**: `.zip`, `.rar`, `.7z`, `.tar`, etc.
+- **Software**: `.exe`, `.msi`, `.dmg`, `.deb`, etc.
+- **Code**: `.py`, `.js`, `.html`, `.css`, etc.
+- **Others**: Any file that doesn't match above categories
 
 ## ⚙️ Configuration
 
-The `config.json` file stores all your organization rules:
+FileNest uses a simple `config.json` file:
 
 ```json
 {
-  "target_directory": "./Downloads",
-  "rules": {
+  "target_path": "/home/user/Downloads",
+  "categories": {
     "Images": [".jpg", ".jpeg", ".png", ".gif"],
-    "Documents": [".pdf", ".doc", ".docx", ".txt"],
-    "Videos": [".mp4", ".avi", ".mkv", ".mov"],
-    "Audio": [".mp3", ".wav", ".flac", ".aac"],
-    "Archives": [".zip", ".rar", ".7z", ".tar"],
-    "Code": [".py", ".js", ".html", ".css"],
-    "Others": []
-  }
+    "Documents": [".pdf", ".docx", ".txt"]
+  },
+  "others_folder": "Others",
+  "duplicate_strategy": "rename"
 }
 ```
 
-### Adding Custom Categories
+### Duplicate Strategies
+- **rename**: Add (1), (2), etc. to filename
+- **skip**: Don't move files that already exist
+- **overwrite**: Replace existing files
 
-**Via Configuration Tool:**
+## 🔧 Command Line Options
 
 ```bash
-python config_setup.py
-# Follow the interactive prompts
+organize                    # Organize Downloads folder
+organize --path PATH        # Organize specific folder
+organize --dry-run          # Preview without moving files
+organize --watch            # Watch for new files
+organize --once             # Run once and exit (default)
+organize --show-log         # Show log entries after organizing
+organize --version          # Show version information
+
+config-setup                # Interactive configuration setup
+config-setup --show         # Show current configuration
+config-setup --import FILE  # Import configuration from file
+
+log-viewer                  # View recent logs
+log-viewer --recent N       # Show N recent entries
+log-viewer --today          # Show today's entries
+log-viewer --search QUERY   # Search logs
+log-viewer --stats          # Show statistics
 ```
 
-**Manual Editing:**
+## 📊 Log Format
 
-```json
-{
-  "rules": {
-    "Scripts": [".py", ".sh", ".bat", ".ps1"],
-    "eBooks": [".epub", ".mobi", ".pdf"],
-    "3D Models": [".obj", ".stl", ".fbx"],
-    "Others": []
-  }
-}
-```
-
-## 📊 Logging System
-
-Every file operation is logged with detailed information:
+FileNest creates clean, readable logs:
 
 ```
-2024-01-15 14:30:25 | MOVED: vacation_photo.jpg → Images/vacation_photo.jpg
-2024-01-15 14:30:25 | MOVED: report.pdf → Documents/report.pdf
-2024-01-15 14:30:26 | ERROR moving locked_file.docx: Permission denied
+2025-09-26T10:45:03Z | Moved | vacation.jpg | /Downloads | /Downloads/Images
+2025-09-26T10:45:04Z | Created | Images
+2025-09-26T10:45:05Z | Skipped | document.pdf | File already exists
 ```
 
-**Log Features:**
+## 🔨 Development & Building
 
-- ✅ Successful moves with timestamps
-- ❌ Error tracking with details
-- 📊 Session summaries
-- 🔍 Searchable history
+### Build all distributions
+```bash
+python build_script.py
+```
 
-## 🛡️ Safety Features
-
-- **Preview Mode**: See what would happen before making changes
-- **File Conflict Handling**: Automatically renames conflicting files (e.g., `file_1.txt`)
-- **Error Recovery**: Continues processing even if some files fail
-- **Detailed Logging**: Complete audit trail of all operations
-- **Permission Checks**: Handles permission errors gracefully
+### Build specific format
+```bash
+python build_script.py wheel    # Pip installable
+python build_script.py exe      # Standalone executable
+python build_script.py release  # Complete package
+```
 
 ## 📁 Project Structure
 
 ```
-file-organizer/
-├── organizer_main.py      # Main file organization engine
-├── config_setup.py        # Interactive configuration tool
-├── log_viewer.py          # Log analysis and viewing tool
-├── test_script.py         # Test suite with sample files
-├── activate_env.py        # Virtual environment helper
-├── requirements.txt       # Dependencies (empty - uses stdlib only)
-├── .gitignore            # Git ignore rules
-├── VENV_SETUP.md         # Virtual environment documentation
-└── README.md             # This documentation
+filenest/
+├── organizer.py           # Main file organization engine
+├── config_setup.py        # Interactive configuration
+├── log_viewer.py          # Log viewing utility
+├── setup.py              # Package configuration
+├── build_script.py       # Build automation
+├── install.py            # Quick installer
+├── filenest.spec         # PyInstaller configuration
+├── config.json           # User configuration
+└── README.md             # This file
 ```
-
-## 🔧 Advanced Usage
-
-### Batch Processing Multiple Folders
-
-```bash
-# PowerShell example
-@("Downloads", "Desktop", "Documents\Temp") | ForEach-Object {
-    python organizer_main.py --path $_ --preview
-}
-```
-
-### Custom Configurations for Different Use Cases
-
-```bash
-# Work files configuration
-python organizer_main.py --config "work_config.json" --path "WorkFolder"
-
-# Personal files configuration
-python organizer_main.py --config "personal_config.json" --path "PersonalFolder"
-```
-
-### Automated Scheduling
-
-**Windows (Task Scheduler):**
-
-```
-Program: python
-Arguments: C:\path\to\organizer_main.py --path "C:\Users\YourName\Downloads"
-```
-
-**Linux/Mac (Crontab):**
-
-```bash
-# Run every day at 6 PM
-0 18 * * * cd /path/to/file-organizer && python organizer_main.py
-```
-
-## 🐛 Troubleshooting
-
-### Common Issues
-
-**Permission Denied Errors:**
-
-- Run as administrator/sudo if organizing system folders
-- Check file permissions before organizing
-
-**Config File Not Found:**
-
-- Run `python config_setup.py` to create initial configuration
-- Ensure `config.json` exists in the same directory
-
-**No Files Being Moved:**
-
-- Check if files are actually in the target directory
-- Verify extensions match your configuration rules
-- Use `--preview` mode to debug
-
-**Log File Issues:**
-
-- Ensure write permissions in the project directory
-- Log file `log.txt` is created automatically
-
-### Getting Help
-
-1. Check the log file for detailed error messages
-2. Use preview mode to test configuration
-3. Verify file permissions and paths
-4. Check that Python 3.6+ is installed
-
-## 🚀 Installation
-
-### Requirements
-
-- Python 3.6 or higher
-- No external dependencies required!
-
-### Virtual Environment (Recommended)
-
-```bash
-# Create virtual environment
-python -m venv venv
-
-# Activate it
-# Windows:
-.\venv\Scripts\Activate.ps1
-# macOS/Linux:
-source venv/bin/activate
-
-# Run the organizer
-python organizer_main.py --preview
-```
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## 🤝 Contributing
 
-Contributions are welcome! Here's how you can help:
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature-name`
+3. Commit changes: `git commit -am 'Add feature'`
+4. Push to branch: `git push origin feature-name`
+5. Submit a Pull Request
 
-1. **Bug Reports**: Open an issue with detailed error information
-2. **Feature Requests**: Suggest new features or improvements
-3. **Code Contributions**: Fork, develop, and submit pull requests
-4. **Documentation**: Help improve this README and code comments
+## 📄 License
 
-### Development Setup
+MIT License - see LICENSE file for details.
 
-```bash
-git clone https://github.com/YOUR_USERNAME/file-organizer.git
-cd file-organizer
-python -m venv venv
-source venv/bin/activate  # or .\venv\Scripts\Activate.ps1 on Windows
-python test_script.py  # Create test environment
-```
+## 🆘 Support
 
-## 🙏 Acknowledgments
-
-- Built with Python standard library - no external dependencies!
-- Inspired by the need to organize messy Downloads folders everywhere
-- Thanks to everyone who tested and provided feedback
-
-## 📈 Future Roadmap
-
-### Phase 2 Features
-
-- 📅 GUI application (Tkinter/PyQt)
-- 🔄 Duplicate file detection and handling
-- 📤 Export logs to CSV/JSON formats
-- 🎨 Enhanced CLI interface with colors
-
-### Phase 3 Features
-
-- 👀 Real-time folder monitoring
-- 📦 Standalone executable (.exe/.app)
-- ☁️ Cloud folder integration
-- 🤖 AI-powered file categorization
+- **Issues**: [GitHub Issues](https://github.com/furqanahmadrao/python-file-organize-utility/issues)
+- **Documentation**: This README
+- **Logs**: Use `log-viewer` to check operation logs
 
 ---
 
-**Happy Organizing! 🗂️✨**
-
-_If you find this tool useful, please give it a ⭐ on GitHub!_
+**Happy organizing! 🗂️✨**

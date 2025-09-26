@@ -1,4 +1,0 @@
-[console_scripts]
-file-organizer = file_organizer_cli:main
-forg = file_organizer_cli:main
-organize-files = file_organizer_cli:main

@@ -1,239 +1,230 @@
 #!/usr/bin/env python3
 """
-Installation Script for File Organizer v2.0
-Easy setup and configuration for the enhanced CLI tool
+FileNest Quick Installer
+One-click installation script for FileNest
 """
 
 import os
 import sys
 import subprocess
-import shutil
+import platform
+import json
 from pathlib import Path
 
-def print_banner():
-    """Print installation banner"""
-    print("""
- ███████╗██╗██╗     ███████╗     ██████╗ ██████╗  ██████╗  █████╗ ███╗   ██╗██╗███████╗███████╗██████╗ 
- ██╔════╝██║██║     ██╔════╝    ██╔═══██╗██╔══██╗██╔════╝ ██╔══██╗████╗  ██║██║╚══███╔╝██╔════╝██╔══██╗
- █████╗  ██║██║     █████╗      ██║   ██║██████╔╝██║  ███╗███████║██╔██╗ ██║██║  ███╔╝ █████╗  ██████╔╝
- ██╔══╝  ██║██║     ██╔══╝      ██║   ██║██╔══██╗██║   ██║██╔══██║██║╚██╗██║██║ ███╔╝  ██╔══╝  ██╔══██╗
- ██║     ██║███████╗███████╗    ╚██████╔╝██║  ██║╚██████╔╝██║  ██║██║ ╚████║██║███████╗███████╗██║  ██║
- ╚═╝     ╚═╝╚══════╝╚══════╝     ╚═════╝ ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝╚══════╝╚══════╝╚═╝  ╚═╝
-
-                          FILE ORGANIZER v2.0 - INSTALLATION
-                      Professional File Organization Utility
-""")
-
-def check_python_version():
-    """Check Python version compatibility"""
-    print("🐍 Checking Python version...")
+class FileNestInstaller:
+    """Quick installer for FileNest"""
     
-    if sys.version_info < (3, 8):
-        print("❌ Python 3.8 or higher is required")
-        print(f"   Current version: {sys.version}")
-        return False
-    
-    print(f"✅ Python {sys.version_info.major}.{sys.version_info.minor}.{sys.version_info.micro} - Compatible")
-    return True
-
-def check_virtual_environment():
-    """Check if running in virtual environment"""
-    print("\n🔧 Checking virtual environment...")
-    
-    if hasattr(sys, 'real_prefix') or (hasattr(sys, 'base_prefix') and sys.base_prefix != sys.prefix):
-        print("✅ Running in virtual environment")
-        return True
-    else:
-        print("⚠️  Not running in virtual environment")
-        print("   Recommendation: Use a virtual environment for better isolation")
+    def __init__(self):
+        self.python_exe = sys.executable
+        self.platform = platform.system()
+        self.install_dir = Path.home() / ".filenest"
         
-        response = input("Continue anyway? (y/N): ").strip().lower()
-        return response in ('y', 'yes')
-
-def install_package():
-    """Install the package in development mode"""
-    print("\n📦 Installing File Organizer v2.0...")
-    
-    try:
-        # Install in development mode
-        result = subprocess.run([sys.executable, "-m", "pip", "install", "-e", "."], 
-                              capture_output=True, text=True, check=True)
-        print("✅ Package installed successfully")
-        return True
-        
-    except subprocess.CalledProcessError as e:
-        print("❌ Installation failed")
-        print(f"Error: {e.stderr}")
-        return False
-
-def create_shortcuts():
-    """Create convenient shortcuts"""
-    print("\n🔗 Setting up shortcuts...")
-    
-    # Create batch file for Windows
-    if os.name == 'nt':
-        batch_content = f"""@echo off
-cd /d "{Path.cwd()}"
-python file_organizer_cli.py %*
-"""
-        batch_file = Path.cwd() / "file-organizer.bat"
-        with open(batch_file, 'w') as f:
-            f.write(batch_content)
-        print(f"✅ Created batch file: {batch_file}")
-        
-        # Create PowerShell script
-        ps_content = f"""Set-Location "{Path.cwd()}"
-python file_organizer_cli.py @args
-"""
-        ps_file = Path.cwd() / "file-organizer.ps1"
-        with open(ps_file, 'w') as f:
-            f.write(ps_content)
-        print(f"✅ Created PowerShell script: {ps_file}")
-    
-    # Create shell script for Unix-like systems
-    else:
-        script_content = f"""#!/bin/bash
-cd "{Path.cwd()}"
-python file_organizer_cli.py "$@"
-"""
-        script_file = Path.cwd() / "file-organizer.sh"
-        with open(script_file, 'w') as f:
-            f.write(script_content)
-        script_file.chmod(0o755)
-        print(f"✅ Created shell script: {script_file}")
-
-def run_initial_setup():
-    """Run initial configuration"""
-    print("\n⚙️  Running initial setup...")
-    
-    try:
-        # Import and create default profile
-        sys.path.insert(0, str(Path.cwd()))
-        from file_organizer.core.config_manager import ConfigManager
-        
-        config_manager = ConfigManager()
-        profile = config_manager.create_default_profile()
-        
-        if profile:
-            print("✅ Default profile created")
-            
-            # Create some common profiles
-            profiles = ["photographer", "developer", "student"]
-            for profile_type in profiles:
-                profile = config_manager.create_profile_for_use_case(profile_type)
-                if profile:
-                    print(f"✅ Created {profile_type} profile")
-            
-            return True
-        else:
-            print("❌ Failed to create default profile")
+    def check_python_version(self):
+        """Check if Python version is compatible"""
+        version = sys.version_info
+        if version.major < 3 or (version.major == 3 and version.minor < 8):
+            print("❌ Error: Python 3.8 or higher is required")
+            print(f"   Current version: {version.major}.{version.minor}.{version.micro}")
+            print("   Please upgrade Python and try again.")
             return False
-            
-    except Exception as e:
-        print(f"❌ Setup failed: {e}")
-        return False
-
-def run_tests():
-    """Run basic functionality tests"""
-    print("\n🧪 Running functionality tests...")
-    
-    try:
-        result = subprocess.run([sys.executable, "demo_cli.py"], 
-                              capture_output=True, text=True, timeout=30)
         
-        if result.returncode == 0:
-            print("✅ All tests passed!")
-            return True
-        else:
-            print("⚠️  Some tests failed, but basic functionality works")
+        print(f"✓ Python {version.major}.{version.minor}.{version.micro} - Compatible")
+        return True
+    
+    def install_filenest(self):
+        """Install FileNest using pip"""
+        print("📦 Installing FileNest...")
+        
+        try:
+            # Try to install from current directory if setup.py exists
+            if (Path.cwd() / "setup.py").exists():
+                print("  Installing from local source...")
+                result = subprocess.run([
+                    self.python_exe, "-m", "pip", "install", "-e", ".[all]"
+                ], capture_output=True, text=True)
+            else:
+                # Install from PyPI (when available)
+                print("  Installing from PyPI...")
+                result = subprocess.run([
+                    self.python_exe, "-m", "pip", "install", "filenest[all]"
+                ], capture_output=True, text=True)
+            
+            if result.returncode == 0:
+                print("  ✓ FileNest installed successfully!")
+                return True
+            else:
+                print(f"  ❌ Installation failed: {result.stderr}")
+                return False
+                
+        except Exception as e:
+            print(f"  ❌ Installation error: {e}")
+            return False
+    
+    def setup_initial_config(self):
+        """Set up initial configuration"""
+        print("⚙️ Setting up initial configuration...")
+        
+        # Create install directory
+        self.install_dir.mkdir(exist_ok=True)
+        
+        # Default configuration
+        default_config = {
+            "target_path": str(Path.home() / "Downloads"),
+            "categories": {
+                "Images": [".jpg", ".jpeg", ".png", ".gif", ".bmp", ".tiff", ".svg", ".webp"],
+                "Documents": [".pdf", ".docx", ".doc", ".txt", ".rtf", ".odt", ".xls", ".xlsx", ".ppt", ".pptx"],
+                "Videos": [".mp4", ".mkv", ".mov", ".avi", ".wmv", ".flv", ".webm", ".m4v"],
+                "Audio": [".mp3", ".wav", ".flac", ".aac", ".ogg", ".wma", ".m4a"],
+                "Archives": [".zip", ".rar", ".7z", ".tar", ".gz", ".bz2", ".xz"],
+                "Software": [".exe", ".msi", ".dmg", ".pkg", ".deb", ".rpm", ".appimage"],
+                "Code": [".py", ".js", ".html", ".css", ".java", ".cpp", ".c", ".h", ".php", ".rb", ".go", ".rs"]
+            },
+            "others_folder": "Others",
+            "move_empty_folders": False,
+            "duplicate_strategy": "rename"
+        }
+        
+        config_path = self.install_dir / "config.json"
+        
+        try:
+            with open(config_path, 'w', encoding='utf-8') as f:
+                json.dump(default_config, f, indent=2)
+            
+            print(f"  ✓ Configuration saved to: {config_path}")
             return True
             
-    except subprocess.TimeoutExpired:
-        print("⚠️  Tests took too long, skipping")
-        return True
-    except Exception as e:
-        print(f"⚠️  Test failed: {e}")
-        print("   This is not critical - manual testing recommended")
-        return True
-
-def print_usage_instructions():
-    """Print usage instructions"""
-    print("""
-🎉 INSTALLATION COMPLETE! 
-
-🚀 QUICK START:
-   
-   # Show help
-   python file_organizer_cli.py --help
-   
-   # Interactive mode
-   python file_organizer_cli.py
-   
-   # Preview organization 
-   python file_organizer_cli.py organize --preview --path ~/Downloads
-   
-   # List profiles
-   python file_organizer_cli.py profiles --list
-   
-   # Create custom profile
-   python file_organizer_cli.py config --create photographer
-
-📚 DOCUMENTATION:
-   • README.md - Project overview
-   • USAGE_GUIDE.md - Comprehensive usage guide
-   • Run 'python demo_cli.py' for interactive demonstration
-
-🔧 SHORTCUTS:""")
+        except Exception as e:
+            print(f"  ❌ Config setup failed: {e}")
+            return False
     
-    if os.name == 'nt':
-        print("   • file-organizer.bat [args] - Batch file shortcut")
-        print("   • file-organizer.ps1 [args] - PowerShell shortcut") 
-    else:
-        print("   • ./file-organizer.sh [args] - Shell script shortcut")
+    def test_installation(self):
+        """Test the installation"""
+        print("🧪 Testing installation...")
+        
+        commands_to_test = ["organize", "config-setup", "log-viewer"]
+        
+        for command in commands_to_test:
+            try:
+                result = subprocess.run([
+                    command, "--help"
+                ], capture_output=True, text=True, timeout=10)
+                
+                if result.returncode == 0:
+                    print(f"  ✓ {command} - Working")
+                else:
+                    print(f"  ⚠️ {command} - Issue detected")
+                    
+            except subprocess.TimeoutExpired:
+                print(f"  ⚠️ {command} - Timeout")
+            except FileNotFoundError:
+                print(f"  ❌ {command} - Not found")
+            except Exception as e:
+                print(f"  ❌ {command} - Error: {e}")
     
-    print("""
-⚡ ADVANCED FEATURES:
-   • Multi-threaded processing
-   • Duplicate file detection
-   • Undo functionality  
-   • Directory watching
-   • Comprehensive logging
-   • Statistical analysis
-
-🆘 SUPPORT:
-   • GitHub: https://github.com/furqanahmadrao/python-file-organize-utility
-   • Check logs: python file_organizer_cli.py logs --recent 5
-   
-Happy organizing! 🗂️✨
-""")
+    def create_desktop_shortcuts(self):
+        """Create desktop shortcuts (Windows only for now)"""
+        if self.platform != "Windows":
+            return
+        
+        print("🖥️ Creating desktop shortcuts...")
+        
+        try:
+            import win32com.client
+            
+            desktop = Path.home() / "Desktop"
+            shell = win32com.client.Dispatch("WScript.Shell")
+            
+            # Create shortcut for organize command
+            shortcut_path = desktop / "FileNest Organize.lnk"
+            shortcut = shell.CreateShortCut(str(shortcut_path))
+            shortcut.Targetpath = self.python_exe
+            shortcut.Arguments = "-m organizer"
+            shortcut.WorkingDirectory = str(Path.home())
+            shortcut.IconLocation = self.python_exe
+            shortcut.save()
+            
+            print(f"  ✓ Desktop shortcut created: {shortcut_path.name}")
+            
+        except ImportError:
+            print("  ⚠️ pywin32 not available - skipping shortcuts")
+        except Exception as e:
+            print(f"  ⚠️ Shortcut creation failed: {e}")
+    
+    def show_success_message(self):
+        """Show installation success message"""
+        print("\n" + "=" * 60)
+        print("🎉 FileNest Installation Complete!")
+        print("=" * 60)
+        
+        print("\n📋 Quick Start:")
+        print("  1. Configure FileNest:")
+        print("     config-setup")
+        print()
+        print("  2. Organize your Downloads folder:")
+        print("     organize")
+        print()
+        print("  3. Watch for new files automatically:")
+        print("     organize --watch")
+        print()
+        print("  4. View operation logs:")
+        print("     log-viewer")
+        print()
+        
+        print("📁 Configuration stored in:")
+        print(f"   {self.install_dir}")
+        print()
+        
+        print("💡 Tips:")
+        print("   • Use 'organize --dry-run' to preview changes")
+        print("   • Use 'organize --path /custom/path' for other directories")
+        print("   • Use 'config-setup' to modify categories anytime")
+        print()
+        
+        print("✨ Happy organizing!")
+    
+    def install(self):
+        """Run the complete installation process"""
+        print("🚀 FileNest Quick Installer")
+        print("=" * 60)
+        
+        # Check Python version
+        if not self.check_python_version():
+            return False
+        
+        # Install FileNest
+        if not self.install_filenest():
+            return False
+        
+        # Setup initial configuration
+        if not self.setup_initial_config():
+            print("⚠️ Warning: Configuration setup failed, but installation succeeded")
+        
+        # Test installation
+        self.test_installation()
+        
+        # Create shortcuts (Windows only)
+        self.create_desktop_shortcuts()
+        
+        # Show success message
+        self.show_success_message()
+        
+        return True
 
 def main():
-    """Main installation process"""
-    print_banner()
+    """Main installer entry point"""
+    installer = FileNestInstaller()
     
-    # Check requirements
-    if not check_python_version():
+    try:
+        success = installer.install()
+        if not success:
+            print("\n❌ Installation failed. Please check the error messages above.")
+            sys.exit(1)
+    except KeyboardInterrupt:
+        print("\n\n⏹️ Installation cancelled by user.")
         sys.exit(1)
-    
-    if not check_virtual_environment():
+    except Exception as e:
+        print(f"\n❌ Unexpected error during installation: {e}")
         sys.exit(1)
-    
-    # Install package
-    if not install_package():
-        sys.exit(1)
-    
-    # Setup shortcuts
-    create_shortcuts()
-    
-    # Initial configuration
-    if not run_initial_setup():
-        print("⚠️  Initial setup failed, but you can configure manually")
-    
-    # Test functionality
-    run_tests()
-    
-    # Print instructions
-    print_usage_instructions()
 
 if __name__ == "__main__":
     main()

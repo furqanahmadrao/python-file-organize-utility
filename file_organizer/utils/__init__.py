@@ -1,1 +1,0 @@
-"""Utils module for File Organizer"""
