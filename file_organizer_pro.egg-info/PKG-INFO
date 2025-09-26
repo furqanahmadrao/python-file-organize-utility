@@ -1,3 +1,61 @@
+Metadata-Version: 2.4
+Name: file-organizer-pro
+Version: 2.0.0
+Summary: Professional file organization utility with advanced CLI features
+Home-page: https://github.com/furqanahmadrao/python-file-organize-utility
+Author: Furqan Ahmad Rao
+Author-email: your.email@example.com
+License: MIT
+Project-URL: Bug Reports, https://github.com/furqanahmadrao/python-file-organize-utility/issues
+Project-URL: Source, https://github.com/furqanahmadrao/python-file-organize-utility
+Project-URL: Documentation, https://github.com/furqanahmadrao/python-file-organize-utility#readme
+Keywords: file,organizer,organize,files,directory,cleanup,automation,cli,utility,management,sorting
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: End Users/Desktop
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Topic :: System :: Filesystems
+Classifier: Topic :: Utilities
+Classifier: Environment :: Console
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Provides-Extra: dev
+Requires-Dist: pytest>=7.0.0; extra == "dev"
+Requires-Dist: pytest-cov>=4.0.0; extra == "dev"
+Requires-Dist: black>=23.0.0; extra == "dev"
+Requires-Dist: flake8>=5.0.0; extra == "dev"
+Requires-Dist: mypy>=1.0.0; extra == "dev"
+Provides-Extra: watch
+Requires-Dist: watchdog>=3.0.0; extra == "watch"
+Provides-Extra: all
+Requires-Dist: pytest>=7.0.0; extra == "all"
+Requires-Dist: pytest-cov>=4.0.0; extra == "all"
+Requires-Dist: black>=23.0.0; extra == "all"
+Requires-Dist: flake8>=5.0.0; extra == "all"
+Requires-Dist: mypy>=1.0.0; extra == "all"
+Requires-Dist: watchdog>=3.0.0; extra == "all"
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: keywords
+Dynamic: license
+Dynamic: license-file
+Dynamic: project-url
+Dynamic: provides-extra
+Dynamic: requires-python
+Dynamic: summary
+
 # 🗂️ File Organizer v2.0
 
 **Professional file organization utility with enhanced CLI features!**
@@ -12,14 +70,12 @@ A powerful and feature-rich Python tool that transforms chaos into order with ad
 ## ✨ Features
 
 ### 🎯 **Core Functionality**
-
 - 🗂️ **Smart Organization**: Automatically sorts files by type, size, date, or custom rules
 - 👤 **Multiple Profiles**: Pre-built profiles (photographer, developer, student, business)
 - 📁 **Auto-Folder Creation**: Intelligent folder structure creation
 - ⚙️ **Fully Customizable**: Advanced configuration system with rule validation
 
-### ⚡ **Enhanced CLI Features**
-
+### ⚡ **Enhanced CLI Features** 
 - 🖥️ **Interactive Mode**: User-friendly menu system for beginners
 - � **Command-Line Interface**: Full-featured CLI with 50+ options
 - 🚀 **Multi-threading**: Process thousands of files efficiently
@@ -28,7 +84,6 @@ A powerful and feature-rich Python tool that transforms chaos into order with ad
 - 📊 **Progress Tracking**: Visual progress bars and live statistics
 
 ### 🛡️ **Safety & Reliability**
-
 - 🔍 **Preview Mode**: See changes before they happen
 - ↩️ **Undo Functionality**: Complete operation reversal
 - 📋 **Comprehensive Logging**: Database-backed logging system

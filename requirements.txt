@@ -1,8 +1,28 @@
-# File Organizer v1.0 - Requirements
-# This project uses only Python standard library
-# No external dependencies required
+# File Organizer v2.0 - Enhanced CLI Requirements
 
-# Optional development tools (uncomment if needed):
-# pytest>=7.0.0        # For unit testing
-# black>=22.0.0         # For code formatting
-# flake8>=5.0.0         # For code linting
+# Core dependencies (Python standard library only)
+# No external dependencies required for basic functionality
+
+# Optional CLI enhancements (uncomment if needed):
+# colorama>=0.4.6        # Enhanced Windows color support
+# rich>=13.0.0           # Advanced terminal formatting and progress bars
+
+# Directory monitoring (for watch functionality):
+# watchdog>=3.0.0        # Real-time directory monitoring
+
+# Safe file operations (recommended):
+# send2trash>=1.8.0      # Safe file deletion (to recycle bin)
+
+# Development dependencies (install with: pip install -e .[dev]):
+# pytest>=7.0.0         # Testing framework
+# pytest-cov>=4.0.0     # Coverage reporting
+# black>=23.0.0          # Code formatting
+# flake8>=6.0.0          # Linting
+# mypy>=1.0.0            # Type checking
+
+# Performance monitoring (optional):
+# psutil>=5.9.0          # System resource monitoring
+# humanize>=4.6.0        # Human-readable file sizes and dates
+
+# All features (install with: pip install -e .[all])
+# Includes all optional dependencies above
